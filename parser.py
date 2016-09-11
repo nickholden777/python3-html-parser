@@ -1,4 +1,5 @@
 from urllib.request import urlopen
+from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 
 
@@ -37,7 +38,7 @@ def parse_count_page(count_page):
 	massive = list(count_page.findAll('a'))
 	len_massive = len(massive)
 	if len_massive > 0:
-		f = open('main.xls', 'w', encoding='utf-8')
+		f = open(file_name, 'w', encoding='utf-8')
 		f.write(str("""<table>
 			<thead>
 			<tr>
@@ -71,7 +72,11 @@ def check_url(url):
 	parse_count_page(count_page)
 
 
-url = 'http://mc.ru/page.asp/region/speterburg/metalloprokat/ugolok_ravn'
-host_name = 'http://mc.ru'
+url = ''
+host_name_parse = urlparse(url)
+host_name = host_name_parse.scheme + str('://') + host_name_parse.netloc
+
+file_name = 'main.xls'
+
 check_url(url)
 
